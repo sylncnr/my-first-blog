@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 
 def post_list(request):
     posts = Post.objects.filter(yayinlanma_tarihi__lte=timezone.now()).order_by('yayinlanma_tarihi')
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    return render(request, 'blog/post_list.html', {'posts': posts, 'is_admin': not request.user.is_anonymous})
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
